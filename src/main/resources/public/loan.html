@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: #a0a3a4;
+        }
+
+        h1 {
+            color: #0e4696;
+        }
+
+        button {
+            width: 100px;
+            padding: 5px 0;
+            text-align: center;
+            margin: 20px 10px;
+            border-radius: 25px;
+            font-weight: bold;
+            border: 2px solid #009688;
+            background: transparent;
+            color: #009;
+            cursor: pointer;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<h1>Loan converter</h1>
+
+<p>
+    Personal code: <input id="personalCode">
+</p>
+<p>
+    Loan amount : <input id="loanAmount"/>
+</p>
+<p>
+    Loan period : <input id="loanPeriod"/>
+</p>
+<button id="saveButton">Enter</button>
+<p>
+    Answer is: <span id="answer"></span>
+</p>
+<script>
+    let personalCode = document.getElementById("personalCode");
+    let loanAmount = document.getElementById("loanAmount");
+    let loanPeriod = document.getElementById("loanPeriod");
+    let answer = document.getElementById("answer");
+    saveButton.onclick = function () {
+        let requestObject = {
+            'personalCode': personalCode.value,
+            'loanAmount': loanAmount.value,
+            'loanPeriod': loanPeriod.value
+        }
+
+        let url = "http://localhost:8080/loan?personalCode=" + personalCode.value +
+            "&loanAmount=" + loanAmount.value +
+            "&loanPeriod=" + loanPeriod.value;
+        let configuration = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(function (response) {
+                answer.innerText = response
+            })
+    }
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
